@@ -18,4 +18,6 @@ Get de tout les recette exemple JSON:
             "imageType": "jpg"
         },
         
-Tout seras afficher dans une datalist que l'utilsateur choisiras et l'ont retourneras l'image de la recette
+Tout seras afficher dans une datalist que l'utilsateur choisiras et l'ont retourneras l'image de la recette avec le nom
+
+
