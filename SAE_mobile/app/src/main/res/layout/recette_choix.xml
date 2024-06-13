@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nomRecette"
+        android:layout_width="335dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="75dp"
+        android:text="Nom de ma recette"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.138" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/preparation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Temp de preparation : "
+        app:layout_constraintStart_toStartOf="@+id/nomRecette"
+        app:layout_constraintTop_toBottomOf="@+id/nomRecette" />
+
+    <TextView
+        android:id="@+id/portion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Portion : "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nomRecette"
+        app:layout_constraintTop_toBottomOf="@+id/preparation"
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="602dp"
+        android:layout_height="151dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/portion" />
+
+    <TextView
+        android:id="@+id/nbPortion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-365dp"
+        android:text="18"
+        app:layout_constraintBottom_toBottomOf="@+id/portion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/portion"
+        app:layout_constraintTop_toTopOf="@+id/portion" />
+
+    <TextView
+        android:id="@+id/tempPreparation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-280dp"
+        android:text="18"
+        app:layout_constraintBottom_toBottomOf="@+id/preparation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/preparation"
+        app:layout_constraintTop_toTopOf="@+id/preparation" />
+</androidx.constraintlayout.widget.ConstraintLayout>

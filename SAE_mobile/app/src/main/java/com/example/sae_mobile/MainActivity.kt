@@ -7,7 +7,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.H
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.recette_choix)
     }
 
 }
