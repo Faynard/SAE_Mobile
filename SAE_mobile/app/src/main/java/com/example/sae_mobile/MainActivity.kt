@@ -1,67 +1,41 @@
 package com.example.sae_mobile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient
-import android.util.Log
 import android.widget.Button
-import com.example.sae_mobile.Model.Recipe
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.example.sae_mobile.data.RecipeDAO
+import com.example.sae_mobile.network.ApiService
+import com.example.sae_mobile.viewmodel.RecipeViewModel
+import com.example.sae_mobile.viewmodel.RecipeViewModelFactory
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.request.get
-import io.ktor.client.request.parameter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
-import kotlinx.serialization.json.jsonObject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var recipeList : List<Recipe>
+    private val viewModel: RecipeViewModel by viewModels{
+        val apiService = ApiService(kTorClient)
+        val recipeDao = RecipeDAO(apiService)
+        RecipeViewModelFactory(recipeDao)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.activity_main)
+
+        fetchData()
 
         val button = findViewById<Button>(R.id.btn_get)
-        button.setOnClickListener {
-            /*println(getRequestResult("https://api.spoonacular.com/recipes/complexSearch"))*/
 
-
-            fetchData("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true")
-        }
+        viewModel.recipes.observe(this, { recipes ->
+            // Mettre à jour l'interface utilisateur avec les recettes
+            println(recipes)
+        })
     }
 
-    private fun fetchData(url: String) {
-
-        GlobalScope.launch(Dispatchers.IO) {
-
-            val response = kTorClient.get(url) {
-                parameter("apiKey", "ba43ca9e6c284df4aa230487f1cb1e53")
-            }
-            Log.d("MainActivity", "Response: $response")
-            val result = response.body<String>()
-            val jsonElement = Json {
-                ignoreUnknownKeys = true
-                isLenient = true
-            }.parseToJsonElement(result).jsonObject["results"]
-
-            if (jsonElement != null) {
-                println(jsonElement)
-                val test2 = Json{
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                }.decodeFromJsonElement<List<Recipe>>(jsonElement)
-                println(test2)
-                recipeList = test2
-                println(recipeList)
-            }
-        }
-
+    private fun fetchData() {
+        viewModel.fetchRecipes("ba43ca9e6c284df4aa230487f1cb1e53")
     }
 
     companion object {
