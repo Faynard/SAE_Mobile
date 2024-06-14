@@ -2,7 +2,6 @@ package com.example.sae_mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient
 import android.util.Log
 import android.widget.Button
 import com.example.sae_mobile.Model.Recipe
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.activity_main)
 
         val button = findViewById<Button>(R.id.btn_get)
         button.setOnClickListener {
