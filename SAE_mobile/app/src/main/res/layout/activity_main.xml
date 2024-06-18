@@ -76,6 +76,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="64dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/dropdawn_genre" />
 
     <TextView
@@ -86,6 +87,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/id_txt_nombre_portion"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/seekBar"
         app:layout_constraintTop_toTopOf="@+id/seekBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
