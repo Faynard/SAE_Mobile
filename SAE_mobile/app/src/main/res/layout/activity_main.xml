@@ -70,12 +70,16 @@
         app:layout_constraintTop_toTopOf="@+id/dropdawn_genre" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarPortion"
         android:layout_width="138dp"
         android:layout_height="26dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="64dp"
+        android:max="8"
+        android:min="1"
+        android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/dropdawn_genre" />
 
@@ -84,20 +88,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre de portions"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarPortion"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="@+id/seekBarPortion" />
 
     <TextView
         android:id="@+id/id_txt_nombre_portion"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarPortion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintStart_toEndOf="@+id/seekBarPortion"
+        app:layout_constraintTop_toTopOf="@+id/seekBarPortion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
