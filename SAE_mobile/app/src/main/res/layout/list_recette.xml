@@ -6,22 +6,34 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/listRecette"
-        android:layout_width="405dp"
-        android:layout_height="662dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="68dp" />
+        android:id="@+id/id_liste_recette"
+        android:layout_width="411dp"
+        android:layout_height="621dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="109dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="choisissez une recette"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
         android:layout_centerInParent="true"
+        android:text="Choisissez une recette"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/id_liste_recette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/id_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:srcCompat="@android:drawable/btn_dialog" />
 </androidx.constraintlayout.widget.ConstraintLayout>

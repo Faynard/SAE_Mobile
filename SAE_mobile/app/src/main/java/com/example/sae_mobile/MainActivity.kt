@@ -1,50 +1,42 @@
 package com.example.sae_mobile
 
+
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.sae_mobile.Model.Recipe
-import com.example.sae_mobile.data.RecipeDAO
+import com.example.sae_mobile.Model.Recipes
 import com.example.sae_mobile.network.ApiService
-import com.example.sae_mobile.viewmodel.RecipeViewModel
-import com.example.sae_mobile.viewmodel.RecipeViewModelFactory
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
+import kotlinx.coroutines.launch
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var spinner: Spinner
-    lateinit var result : List<Recipe>
-
-    private val viewModel: RecipeViewModel by viewModels{
-        val apiService = ApiService(kTorClient)
-        val recipeDao = RecipeDAO(apiService)
-        RecipeViewModelFactory(recipeDao)
-    }
+    var apiService : ApiService = ApiService(kTorClient)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        fetchData()
 
         val titleSearch : TextView = findViewById(R.id.editTextText)
         val button = findViewById<Button>(R.id.btn_search)
         val portions: SeekBar = findViewById(R.id.seekBarPortion)
         val nbPortion : TextView = findViewById(R.id.id_txt_nombre_portion)
         var genreChoisi :String = ""
-        result = mutableListOf()
 
         portions.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onStopTrackingTouch(p0: SeekBar?) {
@@ -63,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         spinner = findViewById<Spinner>(R.id.dropdawn_genre)
 
-        /*---------------------------------------------------Début Spinner--------------------------------------------------------------*/
+        /*----------------------------------------------------------Début Spinner--------------------------------------------------------------*/
         // Définir la liste des types de cuisines
         val cuisines = listOf(
             "",
@@ -116,29 +108,19 @@ class MainActivity : AppCompatActivity() {
                 return// Code à exécuter lorsque rien n'est sélectionné
             }
         }
-
-        /*---------------------------------------------------Fin Spinner--------------------------------------------------------------*/
-        /*viewModel.recipes.observe(this, { recipes ->
-            // Mettre à jour l'interface utilisateur avec les recettes
-            println(recipes)
-        })*/
+        /*-----------------------------------------------------------------Fin Spinner--------------------------------------------------------------*/
 
         button.setOnClickListener {
             println("Paramètres : ${titleSearch.text.toString()}, ${genreChoisi}, ${portions.progress}")
-            viewModel.fetchFilteredRecipes("ba43ca9e6c284df4aa230487f1cb1e53",titleSearch.text.toString(),genreChoisi,portions.progress)
-            viewModel.filteredRecipes.observe(this) { recipes ->
-                println("Plats italiens RECIPES : $recipes")
-                result = recipes
-                println("Plats italiens : $result")
-
+            var listRecipes: Recipes = Recipes()
+            lifecycleScope.launch {
+                listRecipes.recipes = apiService.fetchFilteredRecipes("2eb906031b4d49b8aa4e689d7cb79e0f",titleSearch.text.toString(),genreChoisi,portions.progress)
+                val intent = Intent(this@MainActivity, ListRecette::class.java)
+                intent.putExtra("liste", listRecipes)
+                startActivity(intent)
             }
 
-
         }
-    }
-
-    private fun fetchData() {
-        viewModel.fetchRecipes("ba43ca9e6c284df4aa230487f1cb1e53")
     }
 
     companion object {

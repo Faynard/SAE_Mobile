@@ -1,9 +1,12 @@
 package com.example.sae_mobile.Model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
-data class Recipe(
+data class Recipe (
     val vegetarian: Boolean,
     val vegan: Boolean,
     val glutenFree: Boolean,
@@ -37,7 +40,7 @@ data class Recipe(
     val analyzedInstructions: List<AnalyzedInstruction>,
     val spoonacularScore: Double,
     val spoonacularSourceUrl: String
-)
+): Parcelable
 
 
 
