@@ -9,7 +9,7 @@ class RecipeDAO(private val apiService: ApiService) {
         return apiService.fetchRecipes(apiKey)
     }
 
-    suspend fun fetchFilteredRecipes(apiKey: String,genre:String): List<Recipe> {
-        return apiService.fetchFilteredRecipes(apiKey,genre)
+    suspend fun fetchFilteredRecipes(apiKey: String,name:String, genre:String, portion : Int): List<Recipe> {
+        return apiService.fetchFilteredRecipes(apiKey, name, genre, portion)
     }
 }

@@ -24,9 +24,9 @@ class RecipeViewModel(private val recipeDao: RecipeDAO) : ViewModel() {
         }
     }
 
-    fun fetchFilteredRecipes(apiKey: String,genre:String) {
+    fun fetchFilteredRecipes(apiKey: String,name: String, genre:String,portion : Int) {
         viewModelScope.launch {
-            val filteredRecipesList = recipeDao.fetchFilteredRecipes(apiKey,genre)
+            val filteredRecipesList = recipeDao.fetchFilteredRecipes(apiKey,name,genre,portion)
             _filteredRecipes.postValue(filteredRecipesList)
         }
     }

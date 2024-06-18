@@ -1,6 +1,8 @@
 package com.example.sae_mobile
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
@@ -8,6 +10,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sae_mobile.data.RecipeDAO
@@ -34,9 +37,11 @@ class MainActivity : AppCompatActivity() {
 
         fetchData()
 
+        val titleSearch : TextView = findViewById(R.id.editTextText)
         val button = findViewById<Button>(R.id.btn_search)
         val portions: SeekBar = findViewById(R.id.seekBarPortion)
         val nbPortion : TextView = findViewById(R.id.id_txt_nombre_portion)
+        var genreChoisi :String = ""
 
         portions.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onStopTrackingTouch(p0: SeekBar?) {
@@ -96,6 +101,19 @@ class MainActivity : AppCompatActivity() {
 
         // Assigner l'adaptateur au Spinner
         spinner.adapter = adapter
+
+        // Ajouter un écouteur d'événements de sélection
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Récupérer l'élément sélectionné
+                genreChoisi = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                return// Code à exécuter lorsque rien n'est sélectionné
+            }
+        }
+
         /*---------------------------------------------------Fin Spinner--------------------------------------------------------------*/
         /*viewModel.recipes.observe(this, { recipes ->
             // Mettre à jour l'interface utilisateur avec les recettes
@@ -103,11 +121,13 @@ class MainActivity : AppCompatActivity() {
         })*/
 
         button.setOnClickListener {
-            viewModel.fetchFilteredRecipes("ba43ca9e6c284df4aa230487f1cb1e53","italian")
+            println("Paramètres : ${titleSearch.text.toString()}, ${genreChoisi}, ${portions.progress}")
+            viewModel.fetchFilteredRecipes("ba43ca9e6c284df4aa230487f1cb1e53",titleSearch.text.toString(),genreChoisi,portions.progress)
             viewModel.filteredRecipes.observe(this) { recipes ->
                 // Mettre à jour l'interface utilisateur avec les recettes
                 println("Plats italiens : $recipes")
             }
+
         }
     }
 
