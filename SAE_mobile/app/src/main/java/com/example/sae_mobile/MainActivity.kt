@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sae_mobile.Model.Recipe
 import com.example.sae_mobile.data.RecipeDAO
 import com.example.sae_mobile.network.ApiService
 import com.example.sae_mobile.viewmodel.RecipeViewModel
@@ -24,6 +25,7 @@ import io.ktor.client.plugins.HttpTimeout
 class MainActivity : AppCompatActivity() {
 
     lateinit var spinner: Spinner
+    lateinit var result : List<Recipe>
 
     private val viewModel: RecipeViewModel by viewModels{
         val apiService = ApiService(kTorClient)
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         val portions: SeekBar = findViewById(R.id.seekBarPortion)
         val nbPortion : TextView = findViewById(R.id.id_txt_nombre_portion)
         var genreChoisi :String = ""
+        result = mutableListOf()
 
         portions.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onStopTrackingTouch(p0: SeekBar?) {
@@ -124,9 +127,12 @@ class MainActivity : AppCompatActivity() {
             println("Paramètres : ${titleSearch.text.toString()}, ${genreChoisi}, ${portions.progress}")
             viewModel.fetchFilteredRecipes("ba43ca9e6c284df4aa230487f1cb1e53",titleSearch.text.toString(),genreChoisi,portions.progress)
             viewModel.filteredRecipes.observe(this) { recipes ->
-                // Mettre à jour l'interface utilisateur avec les recettes
-                println("Plats italiens : $recipes")
+                println("Plats italiens RECIPES : $recipes")
+                result = recipes
+                println("Plats italiens : $result")
+
             }
+
 
         }
     }
