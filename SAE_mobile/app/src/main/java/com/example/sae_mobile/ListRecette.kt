@@ -32,8 +32,12 @@ class ListRecette : AppCompatActivity() {
         val listRecettes = intent.getParcelableExtra("liste", Recipes::class.java)
         println("test "+listRecettes!!.recipes)
 
-        var listRecettesAfficher = mutableListOf<Recipe>()
-        val aa = ArrayAdapter(this,android.R.layout.simple_list_item_1,listRecettes.recipes)
+        var listRecettesAfficher = mutableListOf<String>()
+        listRecettes.recipes.forEach { it ->
+
+            listRecettesAfficher.add(it.title)
+        }
+        val aa = ArrayAdapter(this,android.R.layout.simple_list_item_1,listRecettesAfficher)
         listView.adapter = aa
 
     }
