@@ -2,6 +2,7 @@ package com.example.sae_mobile
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sae_mobile.data.RecipeDAO
@@ -26,12 +27,21 @@ class MainActivity : AppCompatActivity() {
 
         fetchData()
 
-        val button = findViewById<Button>(R.id.btn_get)
+        val button = findViewById<Button>(R.id.btn_search)
 
-        viewModel.recipes.observe(this, { recipes ->
+        /*viewModel.recipes.observe(this, { recipes ->
             // Mettre à jour l'interface utilisateur avec les recettes
             println(recipes)
-        })
+        })*/
+
+        button.setOnClickListener {
+            viewModel.fetchFilteredRecipes("ba43ca9e6c284df4aa230487f1cb1e53","italian")
+            println("plat italiens")
+            viewModel.filteredRecipes.observe(this) { recipes ->
+                // Mettre à jour l'interface utilisateur avec les recettes
+                println("Plats italiens : $recipes")
+            }
+        }
     }
 
     private fun fetchData() {

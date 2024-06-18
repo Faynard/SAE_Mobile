@@ -28,4 +28,23 @@ class ApiService(private val client: HttpClient) {
             emptyList()
         }
     }
+
+    suspend fun fetchFilteredRecipes(apiKey: String,genre:String): List<Recipe> {
+        val url = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInstructions=true&addRecipeInformation=true"
+        val response = client.get(url) {
+            parameter("apiKey", apiKey)
+            parameter("cuisine",genre)
+        }
+        val result = response.body<String>()
+        val jsonElement = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }.parseToJsonElement(result).jsonObject["results"]
+
+        return if (jsonElement != null) {
+            Json { ignoreUnknownKeys = true; isLenient = true }.decodeFromJsonElement(jsonElement)
+        } else {
+            emptyList()
+        }
+    }
 }
