@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/nomRecette"
-        android:layout_width="335dp"
-        android:layout_height="25dp"
+        android:layout_width="334dp"
+        android:layout_height="33dp"
         android:layout_marginBottom="75dp"
         android:text="Nom de ma recette"
         android:textColor="@android:color/black"
@@ -54,7 +54,7 @@
     <TextView
         android:id="@+id/description"
         android:layout_width="602dp"
-        android:layout_height="151dp"
+        android:layout_height="216dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageRecette"
@@ -73,12 +73,26 @@
 
     <TextView
         android:id="@+id/tempPreparation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="22dp"
         android:layout_marginStart="-280dp"
         android:text="18"
         app:layout_constraintBottom_toBottomOf="@+id/preparation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
         app:layout_constraintStart_toEndOf="@+id/preparation"
         app:layout_constraintTop_toTopOf="@+id/preparation" />
+
+    <ImageButton
+        android:id="@+id/cancelButton"
+        android:layout_width="39dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/nomRecette"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
