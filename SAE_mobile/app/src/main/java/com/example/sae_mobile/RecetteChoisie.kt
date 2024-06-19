@@ -16,14 +16,16 @@ class RecetteChoisie : AppCompatActivity() {
 
         val title : TextView = findViewById(R.id.nomRecette)
         val portions : TextView = findViewById(R.id.nbPortion)
+        val tempsPreparation : TextView = findViewById(R.id.tempPreparation)
         val imageRecette : ImageView = findViewById(R.id.imageRecette)
 
+        tempsPreparation.text = recetteChoisi!!.preparationMinutes.toString()
         title.text = recetteChoisi!!.title
         portions.text = recetteChoisi!!.servings.toString()
-
         Glide.with(this)
             .load(recetteChoisi!!.sourceUrl)
             .into(imageRecette)
+
 
     }
 }
