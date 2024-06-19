@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.138" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageRecette"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="220dp"
@@ -57,7 +57,7 @@
         android:layout_height="151dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageRecette"
         app:layout_constraintTop_toBottomOf="@+id/portion" />
 
     <TextView
