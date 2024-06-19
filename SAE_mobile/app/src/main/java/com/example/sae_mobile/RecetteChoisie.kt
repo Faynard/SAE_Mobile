@@ -1,9 +1,9 @@
 package com.example.sae_mobile
 
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.method.ScrollingMovementMethod
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,6 +36,7 @@ class RecetteChoisie : AppCompatActivity() {
         } else {
             Html.fromHtml(recetteChoisi!!.summary)
         }
+        description.movementMethod = ScrollingMovementMethod()
 
         Picasso.get()
             .load(recetteChoisi!!.image)
