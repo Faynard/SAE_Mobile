@@ -30,6 +30,7 @@
         </activity>
         <activity
             android:name=".RecetteChoisie"
+            android:screenOrientation="landscape"
             android:exported="true">
         </activity>
     </application>
