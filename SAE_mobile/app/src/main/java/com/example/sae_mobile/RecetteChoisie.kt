@@ -61,21 +61,21 @@ class RecetteChoisie : AppCompatActivity() {
         go.setOnClickListener {
 
             val instruction = recetteChoisi!!.analyzedInstructions[0]
-            val instructions = instruction.steps.forEach { step ->
+            var instructionString = ""
+            instruction.steps.forEach { step ->
                 if (step.length == null) {
-                    println("${step.number}  \n" +
+                    instructionString += "Etape : ${step.number}  \n" +
                             "Durée : Non renseignée\n" +
-                            "${step.step}")
+                            "${step.step}\n\n"
                 } else{
-                    println("${step.number}  \n" +
+                    instructionString += "Etape : ${step.number}  \n" +
                             "Durée : ${step.length!!.number} minutes\n" +
-                            "${step.step}")
+                            "${step.step}\n\n"
                 }
-
-
             }
+            println("AVANT ENVOI : $instructionString")
 
-            val fragment = FragmentRecette.newInstance(instructions)
+            val fragment = FragmentRecette.newInstance(instructionString)
             val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.fragment, fragment)
             transaction.addToBackStack(null)
