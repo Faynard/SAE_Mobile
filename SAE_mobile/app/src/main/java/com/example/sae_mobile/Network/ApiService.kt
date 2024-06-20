@@ -29,7 +29,7 @@ class ApiService(private val client: HttpClient) {
         }
     }
 
-    suspend fun fetchFilteredRecipes(apiKey: String, name:String, genre:String, portion: Int): List<Recipe> {
+    suspend fun fetchFilteredRecipes(apiKey: String, name:String, genre:String, portion: Int,diets : String): List<Recipe> {
         val url = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInstructions=true&addRecipeInformation=true"
         val response = client.get(url) {
             parameter("apiKey", apiKey)
@@ -37,6 +37,7 @@ class ApiService(private val client: HttpClient) {
             parameter("cuisine",genre)
             parameter("minServings",portion)
             parameter("maxServings",portion)
+            parameter("diet",diets)
 
         }
         val result = response.body<String>()

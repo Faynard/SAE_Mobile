@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Spinner
@@ -110,11 +111,42 @@ class MainActivity : AppCompatActivity() {
         }
         /*-----------------------------------------------------------------Fin Spinner--------------------------------------------------------------*/
 
+        /**
+         * Checkbox
+         */
+        val veganCheckBox : CheckBox = findViewById(R.id.vegan)
+        val vegetarianCheckBox : CheckBox = findViewById(R.id.vegetarian)
+        val glutenFreeCheckBox : CheckBox = findViewById(R.id.glutenfree)
+        val dairyFreeCheckBox : CheckBox = findViewById(R.id.dairy_free)
+        val primalCheckBox : CheckBox = findViewById(R.id.primal)
+        veganCheckBox.isChecked
+
         button.setOnClickListener {
+            var diets : String = ""
+            if (veganCheckBox.isChecked){
+                diets += "vegan,"
+            }
+            if (vegetarianCheckBox.isChecked){
+                diets += "vegetarian,"
+            }
+            if (glutenFreeCheckBox.isChecked){
+                diets += "gluten free,"
+            }
+            if (dairyFreeCheckBox.isChecked){
+                diets += "dairy free,"
+            }
+            if (primalCheckBox.isChecked){
+                diets += "primal,"
+            }
+
+            if (diets.length > 1){
+                diets.substring(0, diets.length - 1)
+            }
+
             println("Paramètres : ${titleSearch.text.toString()}, ${genreChoisi}, ${portions.progress}")
             var listRecipes: Recipes = Recipes()
             lifecycleScope.launch {
-                listRecipes.recipes = apiService.fetchFilteredRecipes("2eb906031b4d49b8aa4e689d7cb79e0f",titleSearch.text.toString(),genreChoisi,portions.progress)
+                listRecipes.recipes = apiService.fetchFilteredRecipes("2eb906031b4d49b8aa4e689d7cb79e0f",titleSearch.text.toString(),genreChoisi,portions.progress,diets)
                 val intent = Intent(this@MainActivity, ListRecette::class.java)
                 intent.putExtra("liste", listRecipes)
                 startActivity(intent)
