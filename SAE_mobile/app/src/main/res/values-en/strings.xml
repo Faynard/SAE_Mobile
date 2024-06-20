@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recipes">Recipes</string>
+    <string name="search">Search</string>
+    <string name="gender">Gender</string>
+    <string name="servings_number">Servings Number</string>
+    <string name="choose_a_recipe">Choose a Recipes</string>
+</resources>
