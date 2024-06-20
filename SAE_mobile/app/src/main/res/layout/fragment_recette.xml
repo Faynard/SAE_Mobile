@@ -34,7 +34,7 @@
         android:id="@+id/textView5"
         android:layout_width="410dp"
         android:layout_height="55dp"
-        android:text="Instructions de la recette :"
+        android:text="@string/recipe_instructions"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
