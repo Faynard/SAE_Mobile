@@ -25,10 +25,9 @@ class FragmentRecette : Fragment(R.layout.fragment_recette) {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return view
 
     }
-
     companion object{
         @JvmStatic
         fun newInstance() = FragmentRecette()
