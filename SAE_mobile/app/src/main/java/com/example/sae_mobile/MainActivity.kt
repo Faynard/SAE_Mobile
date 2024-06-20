@@ -13,6 +13,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.sae_mobile.Model.Recipe
@@ -22,6 +23,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -147,9 +149,15 @@ class MainActivity : AppCompatActivity() {
             var listRecipes: Recipes = Recipes()
             lifecycleScope.launch {
                 listRecipes.recipes = apiService.fetchFilteredRecipes("2eb906031b4d49b8aa4e689d7cb79e0f",titleSearch.text.toString(),genreChoisi,portions.progress,diets)
-                val intent = Intent(this@MainActivity, ListRecette::class.java)
-                intent.putExtra("liste", listRecipes)
-                startActivity(intent)
+
+                if (listRecipes.recipes.isNotEmpty()){
+                    val intent = Intent(this@MainActivity, ListRecette::class.java)
+                    intent.putExtra("liste", listRecipes)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@MainActivity,"Aucune recette trouvée avec cette recherche", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
         }
