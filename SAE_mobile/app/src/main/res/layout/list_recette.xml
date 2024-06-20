@@ -23,7 +23,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:text="Choisissez une recette"
+        android:text="@string/choose_a_recipe"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/id_liste_recette"

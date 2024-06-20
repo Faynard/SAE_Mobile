@@ -2,4 +2,9 @@
     <string name="app_name">SAE_mobile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipes">Recettes</string>
+    <string name="search">Rechercher</string>
+    <string name="gender">Genre</string>
+    <string name="servings_number">Nombre de portions</string>
+    <string name="choose_a_recipe">Choisissez une recette</string>
 </resources>
