@@ -59,7 +59,23 @@ class RecetteChoisie : AppCompatActivity() {
         portions.text = recetteChoisi!!.servings.toString()
 
         go.setOnClickListener {
-            val fragment = FragmentRecette.newInstance()
+
+            val instruction = recetteChoisi!!.analyzedInstructions[0]
+            var instructionString = ""
+            instruction.steps.forEach { step ->
+                if (step.length == null) {
+                    instructionString += "Etape : ${step.number}  \n" +
+                            "Durée : Non renseignée\n" +
+                            "${step.step}\n\n"
+                } else{
+                    instructionString += "Etape : ${step.number}  \n" +
+                            "Durée : ${step.length!!.number} minutes\n" +
+                            "${step.step}\n\n"
+                }
+            }
+            println("AVANT ENVOI : $instructionString")
+
+            val fragment = FragmentRecette.newInstance(instructionString)
             val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.fragment, fragment)
             transaction.addToBackStack(null)
