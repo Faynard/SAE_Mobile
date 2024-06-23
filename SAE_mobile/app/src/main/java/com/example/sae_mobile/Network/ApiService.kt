@@ -12,11 +12,11 @@ import kotlinx.serialization.json.jsonObject
 
 class ApiService(private val client: HttpClient) {
 
-    /* Foinction d'appel à l'api pour récupérer les informations souhaité */
+    /* Fonction d'appel à l'api pour récupérer les informations souhaitées */
     suspend fun fetchFilteredRecipes(apiKey: String, name:String, genre:String, portion: Int,diets : String): List<Recipe> {
         val url = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInstructions=true&addRecipeInformation=true&number=50"
         val response = client.get(url) {
-            /* Différent paramètre que sélectionne l'utilisateur */
+            /* Différents paramètres que sélectionne l'utilisateur */
             parameter("apiKey", apiKey)
             parameter("query",name)
             parameter("cuisine",genre)
