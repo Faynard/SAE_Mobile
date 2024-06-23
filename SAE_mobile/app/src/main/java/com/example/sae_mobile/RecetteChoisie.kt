@@ -20,11 +20,14 @@ class RecetteChoisie : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recette_choix)
 
+        /* Récupération de la recette */
         val recetteChoisi = intent.getParcelableExtra("recipe", Recipe::class.java)
 
         if (recetteChoisi == null) {
             finish()
         }
+
+
 
         val cancelButton : ImageButton = findViewById(R.id.cancelButton)
         val title : TextView = findViewById(R.id.nomRecette)
@@ -35,7 +38,13 @@ class RecetteChoisie : AppCompatActivity() {
         val go : Button = findViewById(R.id.id_btn_go)
         val fragmentContainer: View = findViewById(R.id.fragment)
 
-        //description.text = recetteChoisi!!.summary
+
+        cancelButton.setOnClickListener {
+            finish()
+        }
+
+        /*-------------------------------------------Début affichage de l'object recette-------------------------------------------------------*/
+
         description.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(recetteChoisi!!.summary, Html.FROM_HTML_MODE_COMPACT)
         } else {
@@ -47,9 +56,6 @@ class RecetteChoisie : AppCompatActivity() {
             .load(recetteChoisi!!.image)
             .into(imageRecette)
 
-        cancelButton.setOnClickListener {
-            finish()
-        }
         if (recetteChoisi!!.preparationMinutes == null){
             tempsPreparation.text = "Non renseignée"
         } else {
@@ -58,10 +64,12 @@ class RecetteChoisie : AppCompatActivity() {
         title.text = recetteChoisi!!.title
         portions.text = recetteChoisi!!.servings.toString()
 
+        /* Activation du fragment */
         go.setOnClickListener {
 
             val instruction = recetteChoisi!!.analyzedInstructions[0]
             var instructionString = ""
+            /* Boucle pour préparer les étapes les unes à la suite des autres */
             instruction.steps.forEach { step ->
                 if (step.length == null) {
                     instructionString += "Etape : ${step.number}  \n" +
@@ -73,8 +81,8 @@ class RecetteChoisie : AppCompatActivity() {
                             "${step.step}\n\n"
                 }
             }
-            println("AVANT ENVOI : $instructionString")
 
+            /* Envoi de ces étapes et activation du fragment */
             val fragment = FragmentRecette.newInstance(instructionString)
             val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.fragment, fragment)
@@ -82,6 +90,7 @@ class RecetteChoisie : AppCompatActivity() {
             transaction.commit()
             fragmentContainer.visibility = View.VISIBLE
         }
+        /*-------------------------------------------Fin affichage de l'object recette-------------------------------------------------------*/
 
     }
 }

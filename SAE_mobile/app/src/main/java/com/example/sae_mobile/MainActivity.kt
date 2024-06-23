@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         val nbPortion : TextView = findViewById(R.id.id_txt_nombre_portion)
         var genreChoisi :String = ""
 
+        /*-------------------------------------------------------Début affichage portion-------------------------------------------------------------------*/
+
         portions.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 return
@@ -56,9 +58,11 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+        /*-------------------------------------------------------Fin affichage portion-------------------------------------------------------------------*/
+
         spinner = findViewById<Spinner>(R.id.dropdawn_genre)
 
-        /*----------------------------------------------------------Début Spinner--------------------------------------------------------------*/
+        /*----------------------------------------------------------Début Spinner (Dropdown)--------------------------------------------------------------*/
         // Définir la liste des types de cuisines
         val cuisines = listOf(
             "",
@@ -100,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         // Assigner l'adaptateur au Spinner
         spinner.adapter = adapter
 
-        // Ajouter un écouteur d'événements de sélection
+        // Récupère la réponse du spinner choisi
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // Récupérer l'élément sélectionné
@@ -111,11 +115,9 @@ class MainActivity : AppCompatActivity() {
                 return// Code à exécuter lorsque rien n'est sélectionné
             }
         }
-        /*-----------------------------------------------------------------Fin Spinner--------------------------------------------------------------*/
+        /*-----------------------------------------------------------------Fin Spinner (Dropdown) --------------------------------------------------------------*/
 
-        /**
-         * Checkbox
-         */
+        /*----------------------------------------------------------Début Checkbox--------------------------------------------------------------*/
         val veganCheckBox : CheckBox = findViewById(R.id.vegan)
         val vegetarianCheckBox : CheckBox = findViewById(R.id.vegetarian)
         val glutenFreeCheckBox : CheckBox = findViewById(R.id.glutenfree)
@@ -123,8 +125,9 @@ class MainActivity : AppCompatActivity() {
         val primalCheckBox : CheckBox = findViewById(R.id.primal)
         veganCheckBox.isChecked
 
+        /* Permet de filtrer en fonction des chekboxs et setup le string qui sera dans l'URL */
         button.setOnClickListener {
-            var diets : String = ""
+            var diets = ""
             if (veganCheckBox.isChecked){
                 diets += "vegan,"
             }
@@ -144,17 +147,21 @@ class MainActivity : AppCompatActivity() {
             if (diets.length > 1){
                 diets.substring(0, diets.length - 1)
             }
+            /*----------------------------------------------------------Fin Checkbox--------------------------------------------------------------*/
 
-            println("Paramètres : ${titleSearch.text.toString()}, ${genreChoisi}, ${portions.progress}")
-            var listRecipes: Recipes = Recipes()
+            var listRecipes = Recipes()
+
             lifecycleScope.launch {
+                /* Appel a l'api en remplissant l'URL avec les paramètres */
                 listRecipes.recipes = apiService.fetchFilteredRecipes("2eb906031b4d49b8aa4e689d7cb79e0f",titleSearch.text.toString(),genreChoisi,portions.progress,diets)
 
                 if (listRecipes.recipes.isNotEmpty()){
+                    /* Si la réponse de l'api est pas vide on l'envoie dans l'activité ListRecette avec cette Intent() (envoi de la liste des objet) */
                     val intent = Intent(this@MainActivity, ListRecette::class.java)
                     intent.putExtra("liste", listRecipes)
                     startActivity(intent)
                 } else {
+                    /*Sinon un toast pour dire que cela n'éxiste pas */
                     Toast.makeText(this@MainActivity,"Aucune recette trouvée avec cette recherche", Toast.LENGTH_SHORT).show()
                 }
 
@@ -162,7 +169,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
+    /* Authorization Ktor */
     companion object {
         val kTorClient = HttpClient(OkHttp) {
             install(HttpTimeout) {

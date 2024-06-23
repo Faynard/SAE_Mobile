@@ -19,19 +19,21 @@ class FragmentRecette : Fragment(R.layout.fragment_recette) {
         savedInstanceState: Bundle?
     ): View? {
 
+        /* Initialisation de la vue */
         val view = inflater.inflate(R.layout.fragment_recette, container, false)
 
         val instruction = arguments?.getString("instruction","Aucune instruction pour cette recette")
-        println("DANS FRAGMENT : $instruction")
+
 
         val button = view.findViewById<ImageButton>(R.id.cancelqzgfoiqgfiuqfluqlfhqlflo)
         val textInstructions = view.findViewById<TextView>(R.id.instructions)
 
+        /* Affichage des steps réalisé en amont dans le TextView */
         textInstructions.movementMethod = ScrollingMovementMethod()
         textInstructions.text = instruction
 
+        /* Permet de stoper le fragment*/
         button.setOnClickListener {
-            println("TEST ICI")
             requireActivity().supportFragmentManager.popBackStack()
         }
 
